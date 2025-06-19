@@ -14,13 +14,16 @@ function App() {
   const [filter, setFilter] = useState(FILTERS.ALL);
   const [darkMode, setDarkMode] = useState(false);
 
+  const API_BASE = 'https://todo-backend-69t0.onrender.com/tasks';
+
   useEffect(() => {
     document.body.className = darkMode ? 'dark-mode' : '';
   }, [darkMode]);
 
+  // Fetch tasks from the server
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('https://todo-backend-69t0.onrender.com/tasks');
+      const res = await axios.get(API_BASE);
       setTasks(res.data);
     } catch (error) {
       console.error('Error fetching tasks:', error.message);
@@ -31,10 +34,11 @@ function App() {
     fetchTasks();
   }, []);
 
+  // Add a new task
   const addTask = async () => {
     if (!text.trim()) return;
     try {
-      const res = await axios.post('https://todo-backend-69t0.onrender.com/tasks', {
+      await axios.post(API_BASE, {
         text,
         completed: false,
       });
@@ -45,9 +49,10 @@ function App() {
     }
   };
 
+  // Toggle task completion
   const updateTask = async (task) => {
     try {
-      await axios.put(`https://todo-backend-69t0.onrender.com/${task._id}`, {
+      await axios.put(`${API_BASE}/${task._id}`, {
         ...task,
         completed: !task.completed,
       });
@@ -57,15 +62,17 @@ function App() {
     }
   };
 
+  // Delete task
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`https://todo-backend-69t0.onrender.com/tasks/${id}`);
+      await axios.delete(`${API_BASE}/${id}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error.message);
     }
   };
 
+  // Filter tasks
   const filteredTasks = tasks.filter((task) => {
     if (filter === FILTERS.ACTIVE) return !task.completed;
     if (filter === FILTERS.COMPLETED) return task.completed;
