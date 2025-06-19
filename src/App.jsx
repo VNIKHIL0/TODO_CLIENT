@@ -34,7 +34,7 @@ function App() {
   const addTask = async () => {
     if (!text.trim()) return;
     try {
-      const res = await axios.post('http://localhost:5000/tasks', {
+      const res = await axios.post('https://todo-backend-69t0.onrender.com/tasks', {
         text,
         completed: false,
       });
@@ -47,7 +47,7 @@ function App() {
 
   const updateTask = async (task) => {
     try {
-      await axios.put(`http://localhost:5000/tasks/${task._id}`, {
+      await axios.put(`https://todo-backend-69t0.onrender.com/${task._id}`, {
         ...task,
         completed: !task.completed,
       });
@@ -59,7 +59,7 @@ function App() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${id}`);
+      await axios.delete(`https://todo-backend-69t0.onrender.com/tasks/${id}`);
       fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error.message);
