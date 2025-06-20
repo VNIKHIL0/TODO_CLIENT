@@ -20,7 +20,7 @@ function Signup() {
     }
 
     try {
-      await axios.post('http://localhost:5000/register', {
+      await axios.post('https://todo-backend-69t0.onrender.com/register', {
         name,
         email,
         password,
