@@ -17,7 +17,7 @@ function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const API_BASE = 'http://localhost:5000/tasks';
+  const API_BASE = 'https://todo-backend-69t0.onrender.com/tasks';
 
   // Set dark mode class
   useEffect(() => {
